@@ -6,7 +6,7 @@ $(function() {
 			method : "createTask",
 			params : {
 				name: "["+ticket.key+'] '+ticket.summary,
-				note: window.location.href +"\n\n"+ ticket.description
+				note: window.location.href +"\n"+ ticket.description
 			}
 		};
 
@@ -23,10 +23,15 @@ $(function() {
 
 		evt.preventDefault();
 
+    var description = $("#description-val").text() == null ? "" : $.trim($("#description-val").text());
+    if(description === "Click to add description") {
+      description = "";
+    }
+
 		createTaskForTicket({
 			key        : $("#key-val").text(),
 			summary    : $("#summary-val").text().replace( /\s+/, ' ' ).replace( /^\s*(\S.+\S)\s*$/, '$1' ),
-			description: $("#description-val").text()
+			description: description
 		});
 
 	});
